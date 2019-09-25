@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <script src="/static/scan.js"></script>
+        <link rel="stylesheet" href="/static/style.css" />
+        <title>Title</title>
+    </head>
+    <body background="/static/background.jpg">
+    <div id="centerDiv">
+        <div id="centerDivLoading">
+            <h1>Loading...</h1>
+        </div>
+        <div id="centerDivError">
+            <h1>Not a valid code</h1>
+        </div>
+        <div id="centerDivContent">
+            <h2>This qr code has been scanned</h2>
+            <h1 id="code_scans">[ code_uses ]</h1>
+            <h2>times</h2>
+            <h3 id="new_code_scans">You are the [ new_code_uses ] one</h3>
+            <h4 id="type_code_scans">You have scanned the [ type_code_scan_new ] [ type_name ]</h4>
+        </div>
+    </div>
+    </body>
+</html>

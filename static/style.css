@@ -1,0 +1,30 @@
+#centerDiv {
+    width: 90%;
+    height: 90%;
+    position: fixed;
+    background-color: #ffffff;
+    top: 5%;
+    left: 5%;
+    border-radius: 15px 15px 15px 15px;
+    text-align: center;
+}
+
+#centerDiv > * {
+    margin: 30px;
+}
+
+#centerDivLoading {
+
+}
+
+#centerDivContent {
+    display:none;
+}
+
+#centerDivError {
+    display:none;
+}
+
+#code_scans {
+    font-size:50px;
+}
