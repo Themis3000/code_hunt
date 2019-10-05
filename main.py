@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, get_code
+from mongo import add_visit, set_username
 
 app = Flask(__name__)
 
@@ -17,19 +17,25 @@ def scan(style='default'):
         if code:
             return render_template("/scan/" + style + ".html")
         else:
-            return render_template("/scan/" + style + ".html")
-            # return redirect(url_for('index'))
+            return redirect(url_for('index'))
     elif request.method == 'POST':
-        code = request.headers.get('code')
-        add = request.headers.get('add')
-        if add == "true":
-            code_data, type_data, type_all_data = add_visit(code)
+        new_username = request.headers.get('new_username')
+        if new_username:
+            set_username(new_username, request.headers.get('id'))
+            return {"success": True}, 200
         else:
-            code_data, type_data, type_all_data = get_code(code)
-        if code_data is None:
-            return {"error": 400}, 400
-        else:
-            return {"code_data": code_data, "type_data": type_data, "type_all_data": type_all_data}, 200
+            code = request.headers.get('code')
+            user_id = request.headers.get('user_id')
+            code_data, type_data, type_all_data, user_data, new_user = add_visit(code, user_id)
+            if code_data is None:
+                return {"error": 400}, 400
+            else:
+                return {"code_data": code_data, "type_data": type_data, "type_all_data": type_all_data, "user_data": user_data, "new_user": new_user}, 200
+
+
+@app.route('/create', methods=['POST'])
+def create():
+    pass
 
 
 if __name__ == '__main__':

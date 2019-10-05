@@ -13,10 +13,6 @@
     margin: 30px;
 }
 
-#centerDivLoading {
-
-}
-
 #centerDivContent {
     display:none;
 }
@@ -27,4 +23,32 @@
 
 #code_scans {
     font-size:50px;
+}
+
+#username_change {
+    display:none;
+}
+
+#sign_in_confirmation {
+    display:none;
+    position: absolute;
+    bottom: 0;
+}
+
+a:link {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
 }

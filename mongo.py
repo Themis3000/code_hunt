@@ -20,31 +20,51 @@ def get_type(type):
     return visits_count.find_one({"_id": type})
 
 
-def add_visit(code):
-    code_data = referral_codes.find_one_and_update({"_id": code}, {"$inc": {"uses": 1}, "$push": {"uses_data": {"time": int(time.time())}}})
-    if code_data:
-        if code_data["include_in_count"]:
-            if code_data["uses"] == 0:
-                type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1, "unique_visits": 1}}, upsert=True)
-                type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1, "unique_visits": 1}})
-            else:
-                type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1}}, upsert=True)
-                type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1}})
-            return code_data, type_data, type_all_data
-        else:
-            return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"})
+def add_visit(code, user_id):
+    if user_id == "undefined":
+        old_user_data = add_user()
+        user_id = old_user_data["_id"]
+        new_user = True
     else:
-        return None, None, None
+        old_user_data = get_user_by_id(user_id)
+        new_user = False
+    current_time = int(time.time())
+    if code not in old_user_data["codes"]:
+        code_data = referral_codes.find_one_and_update({"_id": code}, {"$inc": {"uses": 1}, "$push": {"uses_data": {"time": current_time, "user": old_user_data["username"], "public_id": old_user_data["public_id"]}}})
+        if code_data:
+            if code_data["include_in_count"]:
+                if code_data["uses"] == 0:
+                    type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1, "unique_visits": 1}}, upsert=True)
+                    type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1, "unique_visits": 1}})
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1, "unique_visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": 1}}}, upsert=True)
+                else:
+                    type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1}}, upsert=True)
+                    type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1}})
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1}}}, upsert=True)
+                return code_data, type_data, type_all_data, user, new_user
+            else:
+                return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"}), get_user_by_id(user_id), new_user
+        else:
+            return None, None, None, None, None
+    else:
+        code_data = referral_codes.find_one({"_id": code})
+        if code_data:
+            return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"}), get_user_by_id(user_id), new_user
+        else:
+            return None, None, None, None, None
 
 
 def get_user_by_id(user):
-    return user_data.find_one_and_update({"_id": user})
+    return user_data.find_one({"_id": user})
 
 
-def add_user(init_code=None):
+def add_user():
     id = gen_code()
-    if init_code:
-        user_data.insert_one({"_id": id, "username": "default", "codes": [init_code]})
-    else:
-        user_data.insert_one({"_id": id, "username": "default", "codes": []})
-    return id
+    public_id = gen_code()
+    data = {"_id": id, "public_id": public_id, "username": "guest", "codes": {}}
+    user_data.insert_one(data)
+    return data
+
+
+def set_username(username, id):
+    user_data.update_one({"_id": id}, {"$set": {"username": username}})
