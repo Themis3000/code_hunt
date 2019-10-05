@@ -1,12 +1,14 @@
 import pymongo
 import os
 import time
+from codegen import gen_code
 
 client = pymongo.MongoClient(f"mongodb+srv://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}@{os.environ['MONGO_SERVER']}")
 
 visits = client["visits"]
 referral_codes = visits["referral_codes"]
 visits_count = visits["visits_count"]
+user_data = visits["user_data"]
 
 
 def get_code(code):
@@ -33,3 +35,16 @@ def add_visit(code):
             return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"})
     else:
         return None, None, None
+
+
+def get_user_by_id(user):
+    return user_data.find_one_and_update({"_id": user})
+
+
+def add_user(init_code=None):
+    id = gen_code()
+    if init_code:
+        user_data.insert_one({"_id": id, "username": "default", "codes": [init_code]})
+    else:
+        user_data.insert_one({"_id": id, "username": "default", "codes": []})
+    return id

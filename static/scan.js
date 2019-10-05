@@ -64,8 +64,8 @@ if (typeof params["code"] !== 'undefined') {
             if (Http.status == 200){
                 var response = JSON.parse(Http.responseText);
                 setCookie("code_" + params["code"], encode_cookie_data(response["code_data"]["uses"], response["type_data"]["visits"], response["type_data"]["unique_visits"], response["type_all_data"]["visits"], response["type_all_data"]["unique_visits"]), 365);
-                replace_var("code_find", "type_name", response["type_data"]["_id"]);
-                replace_var("code_find", "created_number", response["code_data"]["created_number"])
+                replace_var("code_find", "type_name", response["code_data"]["type"]);
+                replace_var("code_find", "created_number", response["code_data"]["created_number"]);
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["code_data"]["uses"] + 1));
                 document.getElementById("centerDivLoading").style.display = "none";
@@ -85,6 +85,8 @@ if (typeof params["code"] !== 'undefined') {
         Http.onloadend = (e) => {
             var response = JSON.parse(Http.responseText);
             var code_cookie_decoded = decode_cookie_data(code_cookie);
+            replace_var("code_find", "type_name", response["code_data"]["type"]);
+            replace_var("code_find", "created_number", response["code_data"]["created_number"]);
             replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
             replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix((parseInt(code_cookie_decoded[0]) + 1).toString()));
             document.getElementById("centerDivLoading").style.display = "none";
