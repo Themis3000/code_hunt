@@ -26,32 +26,32 @@ def add_visit(code, user_id):
         user_id = old_user_data["_id"]
         new_user = True
     else:
-        old_user_data = get_user_by_id(user_id)
+        old_user_data = user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True})
         new_user = False
     current_time = int(time.time())
-    if code not in old_user_data["codes"]:
-        code_data = referral_codes.find_one_and_update({"_id": code}, {"$inc": {"uses": 1}, "$push": {"uses_data": {"time": current_time, "user": old_user_data["username"], "public_id": old_user_data["public_id"]}}})
+    if not old_user_data["codes"]:
+        code_data = referral_codes.find_one_and_update({"_id": code}, {"$inc": {"uses": 1}, "$push": {"uses_data": {"time": current_time, "user": old_user_data["username"], "public_id": old_user_data["public_id"]}}}, projection={"uses_data": False})
         if code_data:
             if code_data["include_in_count"]:
                 if code_data["uses"] == 0:
-                    type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1, "unique_visits": 1}}, upsert=True)
-                    type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1, "unique_visits": 1}})
-                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1, "unique_visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": 1}}}, upsert=True)
+                    visits_count.update({"_id": code_data["type"]}, {"$inc": {"visits": 1, "unique_visits": 1}})
+                    visits_count.update({"_id": "ALL"}, {"$inc": {"visits": 1, "unique_visits": 1}})
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1, "unique_visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": 1}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
                 else:
-                    type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1}}, upsert=True)
-                    type_all_data = visits_count.find_one_and_update({"_id": "ALL"}, {"$inc": {"visits": 1}})
-                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1}}}, upsert=True)
-                return code_data, type_data, type_all_data, user, new_user
+                    visits_count.update({"_id": code_data["type"]}, {"$inc": {"visits": 1}})
+                    visits_count.update({"_id": "ALL"}, {"$inc": {"visits": 1}})
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
+                return code_data, user, new_user
             else:
-                return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"}), get_user_by_id(user_id), new_user
+                return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), new_user
         else:
-            return None, None, None, None, None
+            return None, None, None
     else:
-        code_data = referral_codes.find_one({"_id": code})
+        code_data = referral_codes.find_one({"_id": code}, projection={"uses_data": False})
         if code_data:
-            return code_data, visits_count.find_one({"_id": code_data["type"]}), visits_count.find_one({"_id": "ALL"}), get_user_by_id(user_id), new_user
+            return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), new_user
         else:
-            return None, None, None, None, None
+            return None, None, None
 
 
 def get_user_by_id(user):

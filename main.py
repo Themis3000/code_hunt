@@ -26,11 +26,11 @@ def scan(style='default'):
         else:
             code = request.headers.get('code')
             user_id = request.headers.get('user_id')
-            code_data, type_data, type_all_data, user_data, new_user = add_visit(code, user_id)
+            code_data, user_data, new_user = add_visit(code, user_id)
             if code_data is None:
                 return {"error": 400}, 400
             else:
-                return {"code_data": code_data, "type_data": type_data, "type_all_data": type_all_data, "user_data": user_data, "new_user": new_user}, 200
+                return {"code_data": code_data, "user_data": user_data, "new_user": new_user}, 200
 
 
 @app.route('/create', methods=['POST'])

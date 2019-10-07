@@ -46,7 +46,6 @@ function changeUsername() {
     Http.setRequestHeader("id", getCookie("user_id"))
     Http.send();
     Http.onloadend = (e) => {
-        //visual conformation
     }
 }
 
@@ -65,12 +64,12 @@ if (typeof params["code"] !== 'undefined') {
             console.log(response);
             if (response["new_user"] == true) {
                 setCookie("user_id", response["user_data"]["_id"], 1825);
-                setCookie("user_id_public", response["user_data"]["public_id"], 1825)
+                setCookie("user_id_public", response["user_data"]["public_id"], 1825);
+                replace_var("user_stats", "total_scans", 1);
             }
-            if (response["user_data"]["username"] != "guest") {
-                replace_var("sign_in_confirmation", "username", response["user_data"]["username"]);
-                document.getElementById("sign_in_confirmation").style.display = "block";
-            } else {
+            replace_var("sign_in_confirmation", "username", response["user_data"]["username"]);
+            document.getElementById("sign_in_confirmation").style.display = "block";
+            if (response["user_data"]["username"] == "guest") {
                 document.getElementById("username_change").style.display = "block";
             }
             replace_var("code_find", "type_name", response["code_data"]["type"]);
@@ -78,9 +77,11 @@ if (typeof params["code"] !== 'undefined') {
             if (params["code"] in response["user_data"]["codes"]) {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["user_data"]["codes"][response["code_data"]["_id"]]["visit_num"]));
+                replace_var("user_stats", "total_scans", response["user_data"]["visits"]);
             } else {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["code_data"]["uses"] + 1));
+                replace_var("user_stats", "total_scans", response["user_data"]["visits"] + 1);
             }
             document.getElementById("centerDivLoading").style.display = "none";
             document.getElementById("centerDivContent").style.display = "block";
@@ -90,8 +91,6 @@ if (typeof params["code"] !== 'undefined') {
         }
     }
 }
-
-
 
 
 //clear params
