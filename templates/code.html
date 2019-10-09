@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/static/style.css" />
+    <title>Code</title>
+</head>
+<body>
+    <h1>{{ type }} #{{ code_num }}/{{ type_num }}</h1>
+    <h3>This code has been scanned {{ code_scans }} times</h3>
+    <h3>Created at {{ created_date }}</h3>
+    <h3>Scan history:</h3>
+    <table>
+        <thead><tr><th>Time</th><th>User</th></tr></thead>
+        <tbody>
+            {% for i in range(0, length) %}
+                <tr>
+                    <td>{{ timestamp(history[i]['time']) }}</td>
+                    <td><a href="{{ url_for('profile_page', public_id=history[i]['public_id']) }}">{{ history[i]['user'] }}</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

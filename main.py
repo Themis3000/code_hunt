@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, set_username
+from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def index():
 
 @app.route('/scan/<style>', methods=['GET', 'POST'])
 @app.route('/scan', methods=['GET', 'POST'])
-def scan(style='default'):
+def scan_page(style='default'):
     if request.method == 'GET':
         code = request.args.get('code')
         if code:
@@ -26,14 +27,34 @@ def scan(style='default'):
         else:
             code = request.headers.get('code')
             user_id = request.headers.get('user_id')
-            code_data, user_data, new_user = add_visit(code, user_id)
+            code_data, user_data, type_data, new_user = add_visit(code, user_id)
             if code_data is None:
                 return {"error": 400}, 400
             else:
-                return {"code_data": code_data, "user_data": user_data, "new_user": new_user}, 200
+                return {"code_data": code_data, "user_data": user_data, "type_data": type_data, "new_user": new_user}, 200
 
 
-@app.route('/create', methods=['POST'])
+@app.route('/code/<code>', methods=['GET'])
+def code_page(code):
+    code_data = get_code_data_by_public_id(code)
+    type_data = get_type_data(code_data["type"])
+    return render_template("code.html",
+                           type=code_data["type"],
+                           code_num=code_data["created_number"],
+                           type_num=type_data["created_amount"],
+                           code_scans=code_data["uses"],
+                           created_date=datetime.fromtimestamp(code_data["created_date"]),
+                           history=code_data["uses_data"],
+                           length=len(code_data["uses_data"]),
+                           timestamp=datetime.fromtimestamp)
+
+
+@app.route('/profile/<public_id>', methods=['GET'])
+def profile_page(public_id):
+    return {"id": public_id}
+
+
+@app.route('/api/create', methods=['POST'])
 def create():
     pass
 

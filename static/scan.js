@@ -74,6 +74,7 @@ if (typeof params["code"] !== 'undefined') {
             }
             replace_var("code_find", "type_name", response["code_data"]["type"]);
             replace_var("code_find", "created_number", response["code_data"]["created_number"]);
+            replace_var("code_find", "total_amount", response["type_data"]["created_amount"])
             if (params["code"] in response["user_data"]["codes"]) {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["user_data"]["codes"][response["code_data"]["_id"]]["visit_num"]));
