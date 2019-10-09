@@ -38,13 +38,13 @@ def add_visit(code, user_id):
                     user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
                 return code_data, user, type_data, new_user
             else:
-                return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), visits_count.find_one({"_id": code}), new_user
+                return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), visits_count.find_one({"_id": code_data["type"]}), new_user
         else:
             return None, None, None, None
     else:
         code_data = referral_codes.find_one({"_id": code}, projection={"uses_data": False})
         if code_data:
-            return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), visits_count.find_one({"_id": code}), new_user
+            return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits": True}), visits_count.find_one({"_id": code_data["type"]}), new_user
         else:
             return None, None, None, None
 

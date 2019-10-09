@@ -5,17 +5,17 @@
     <link rel="stylesheet" href="/static/style.css" />
     <title>Code</title>
 </head>
-<body>
+<body style="text-align:center;">
     <h1>{{ type }} #{{ code_num }}/{{ type_num }}</h1>
     <h3>This code has been scanned {{ code_scans }} times</h3>
     <h3>Created at {{ created_date }}</h3>
     <h3>Scan history:</h3>
-    <table>
+    <table class="center">
         <thead><tr><th>Time</th><th>User</th></tr></thead>
         <tbody>
             {% for i in range(0, length) %}
                 <tr>
-                    <td>{{ timestamp(history[i]['time']) }}</td>
+                    <td>{{ timestamp(history[i]['time']).strftime('%Y/%m/%d %I:%M:%S %p') }}</td>
                     <td><a href="{{ url_for('profile_page', public_id=history[i]['public_id']) }}">{{ history[i]['user'] }}</a></td>
                 </tr>
             {% endfor %}

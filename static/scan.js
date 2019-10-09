@@ -51,6 +51,14 @@ function changeUsername() {
 
 var params = getUrlVars();
 
+//clear params
+//var query = window.location.search.substring(1)
+//if(query.length) {
+//   if(window.history != undefined && window.history.pushState != undefined) {
+//        window.history.pushState({}, document.title, window.location.pathname);
+//   }
+//}
+
 if (typeof params["code"] !== 'undefined') {
     var user = getCookie("user_id");
     const Http = new XMLHttpRequest();
@@ -74,7 +82,10 @@ if (typeof params["code"] !== 'undefined') {
             }
             replace_var("code_find", "type_name", response["code_data"]["type"]);
             replace_var("code_find", "created_number", response["code_data"]["created_number"]);
-            replace_var("code_find", "total_amount", response["type_data"]["created_amount"])
+            replace_var("code_find", "total_amount", response["type_data"]["created_amount"]);
+            document.getElementById("sign_in_link").href = "/profile/" + response["user_data"]["public_id"];
+            document.getElementById("leaderboards").href = "/leaderboards/" + response["code_data"]["type"];
+            document.getElementById("code_more_info").href = "/code/" + response["code_data"]["public_id"];
             if (params["code"] in response["user_data"]["codes"]) {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["user_data"]["codes"][response["code_data"]["_id"]]["visit_num"]));
@@ -92,12 +103,3 @@ if (typeof params["code"] !== 'undefined') {
         }
     }
 }
-
-
-//clear params
-//var query = window.location.search.substring(1)
-//if(query.length) {
-//   if(window.history != undefined && window.history.pushState != undefined) {
-//        window.history.pushState({}, document.title, window.location.pathname);
-//   }
-//}

@@ -43,15 +43,22 @@ def code_page(code):
                            code_num=code_data["created_number"],
                            type_num=type_data["created_amount"],
                            code_scans=code_data["uses"],
-                           created_date=datetime.fromtimestamp(code_data["created_date"]),
+                           created_date=datetime.fromtimestamp(code_data["created_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
                            history=code_data["uses_data"],
                            length=len(code_data["uses_data"]),
-                           timestamp=datetime.fromtimestamp)
+                           timestamp=datetime.fromtimestamp,
+                           strftime=datetime.strftime)
 
 
 @app.route('/profile/<public_id>', methods=['GET'])
 def profile_page(public_id):
     return {"id": public_id}
+
+
+@app.route('/leaderboards/<type>')
+@app.route('/leaderboards')
+def leaderboards_page(type='all'):
+    pass
 
 
 @app.route('/api/create', methods=['POST'])
