@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id
+from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id
 from datetime import datetime
 
 app = Flask(__name__)
@@ -52,7 +52,10 @@ def code_page(code):
 
 @app.route('/profile/<public_id>', methods=['GET'])
 def profile_page(public_id):
-    return {"id": public_id}
+    user_data = get_user_by_public_id(public_id)
+    return render_template("profile.html",
+                           profile=user_data["username"],
+                           visits=user_data["visits"])
 
 
 @app.route('/leaderboards/<type>')

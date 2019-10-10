@@ -89,11 +89,15 @@ if (typeof params["code"] !== 'undefined') {
             if (params["code"] in response["user_data"]["codes"]) {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["user_data"]["codes"][response["code_data"]["_id"]]["visit_num"]));
-                replace_var("user_stats", "total_scans", response["user_data"]["visits"]);
+                replace_var("user_stats", "total_scans", response["user_data"]["visits_counts"]["ALL"]["visits"]);
             } else {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["code_data"]["uses"] + 1));
-                replace_var("user_stats", "total_scans", response["user_data"]["visits"] + 1);
+                if ("visits_counts" in response["user_data"]) {
+                    replace_var("user_stats", "total_scans", response["user_data"]["visits_counts"]["ALL"]["visits"] + 1);
+                } else {
+                    replace_var("user_stats", "total_scans", 1);
+                }
             }
             document.getElementById("centerDivLoading").style.display = "none";
             document.getElementById("centerDivContent").style.display = "block";
