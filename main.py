@@ -51,11 +51,18 @@ def code_page(code):
 
 
 @app.route('/profile/<public_id>', methods=['GET'])
-def profile_page(public_id):
-    user_data = get_user_by_public_id(public_id)
-    return render_template("profile.html",
-                           profile=user_data["username"],
-                           visits=user_data["visits"])
+@app.route('/profile', methods=["GET"])
+def profile_page(public_id=None):
+    if public_id:
+        user_data = get_user_by_public_id(public_id)
+        return render_template("profile.html",
+                               username=user_data["username"],
+                               visits=user_data["visits_counts"]["ALL"]["visits"],
+                               join_date=datetime.fromtimestamp(user_data["join_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
+                               code_data=user_data["codes"],
+                               visits_data=user_data["visits_counts"])
+    else:
+        return render_template("profile_redirect.html")
 
 
 @app.route('/leaderboards/<type>')
