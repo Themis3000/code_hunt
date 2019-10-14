@@ -14,17 +14,27 @@
             <h5>Scan counts by type:</h5>
             <table>
                 <thead><tr><th>Type</th><th>Scans</th><th>First scans</th></tr></thead>
+                {% for i in visits_data %}
+                    <tr>
+                        <td><a>{{ i }}</a></td>
+                        <td>{{ visits_data[i]["visits"] }}</td>
+                        <td>{{ visits_data[i]["unique_visits"] }}</td>
+                    </tr>
+                {% endfor %}
             </table>
         </div>
         <div>
             <h5>Code scan history:</h5>
             <table>
-                <thead><tr><th>Id</th><th>Time</th><th>Visit number</th><th></th>type</tr></thead>
-                {% for i in range(0, scan_length) %}
+                <thead><tr><th>Id</th><th>Time</th><th>Visit number</th><th>type</th></tr></thead>
+                {% for i in code_data %}
                     <tr>
-                        <td><a>{ scan_data[""] }</a></td>
+                        <td><a>{{ code_data[i]["public_id"] }}</a></td>
+                        <td>{{ code_data[i]["time"] }}</td>
+                        <td>{{ code_data[i]["visit_num"] }}</td>
+                        <td>{{ code_data[i]["type"] }}</td>
                     </tr>
-                {$ endfor %}
+                {% endfor %}
             </table>
         </div>
     </div>
