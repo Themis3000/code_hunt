@@ -88,5 +88,6 @@ table.center {
 }
 
 #center_tables {
-
+    display: flex;
+    justify-content: center;
 }

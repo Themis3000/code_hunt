@@ -10,7 +10,23 @@
     <h2>{{ visits }} code finds</h2>
     <h3>Joined on {{ join_date }}</h3>
     <div id="center_tables">
-
+        <div>
+            <h5>Scan counts by type:</h5>
+            <table>
+                <thead><tr><th>Type</th><th>Scans</th><th>First scans</th></tr></thead>
+            </table>
+        </div>
+        <div>
+            <h5>Code scan history:</h5>
+            <table>
+                <thead><tr><th>Id</th><th>Time</th><th>Visit number</th><th></th>type</tr></thead>
+                {% for i in range(0, scan_length) %}
+                    <tr>
+                        <td><a>{ scan_data[""] }</a></td>
+                    </tr>
+                {$ endfor %}
+            </table>
+        </div>
     </div>
 </body>
 </html>

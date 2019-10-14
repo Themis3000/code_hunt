@@ -31,11 +31,11 @@ def add_visit(code, user_id):
                 if code_data["uses"] == 0:
                     type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1, "unique_visits": 1}})
                     visits_count.update({"_id": "ALL"}, {"$inc": {"visits": 1, "unique_visits": 1}})
-                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits_counts.ALL.visits": 1, "visits_counts.ALL.unique_visits": 1, "visits_counts." + code_data["type"] + ".visits": 1, "visits_counts." + code_data["type"] + ".unique_visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": 1, "type": code_data["type"]}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits_counts.ALL.visits": 1, "visits_counts.ALL.unique_visits": 1, "visits_counts." + code_data["type"] + ".visits": 1, "visits_counts." + code_data["type"] + ".unique_visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": 1, "type": code_data["type"], "public_id": code_data["public_id"]}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
                 else:
                     type_data = visits_count.find_one_and_update({"_id": code_data["type"]}, {"$inc": {"visits": 1}})
                     visits_count.update({"_id": "ALL"}, {"$inc": {"visits": 1}})
-                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits_counts.ALL.visits": 1, "visits_counts." + code_data["type"] + ".visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1, "type": code_data["type"]}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
+                    user = user_data.find_one_and_update({"_id": user_id}, {"$inc": {"visits_counts.ALL.visits": 1, "visits_counts." + code_data["type"] + ".visits": 1}, "$set": {"codes." + code: {"time": current_time, "visit_num": code_data["uses"] + 1, "type": code_data["type"], "public_id": code_data["public_id"]}}}, projection={"codes." + code: True, "username": True, "public_id": True, "visits": True}, returnNewDocument=True)
                 return code_data, user, type_data, new_user
             else:
                 return code_data, user_data.find_one({"_id": user_id}, {"codes." + code: True, "username": True, "public_id": True, "visits_counts.ALL": True}), visits_count.find_one({"_id": code_data["type"]}), new_user
