@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id
+from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top
 from datetime import datetime
 
 app = Flask(__name__)
@@ -55,19 +55,24 @@ def code_page(code):
 def profile_page(public_id=None):
     if public_id:
         user_data = get_user_by_public_id(public_id)
-        return render_template("profile.html",
-                               username=user_data["username"],
-                               visits=user_data["visits_counts"]["ALL"]["visits"],
-                               join_date=datetime.fromtimestamp(user_data["join_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
-                               code_data=user_data["codes"],
-                               visits_data=user_data["visits_counts"])
+        if user_data:
+            return render_template("profile.html",
+                                   username=user_data["username"],
+                                   visits=user_data["visits_counts"]["ALL"]["visits"],
+                                   join_date=datetime.fromtimestamp(user_data["join_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
+                                   code_data=user_data["codes"],
+                                   visits_data=user_data["visits_counts"],
+                                   timestamp=datetime.fromtimestamp,
+                                   strftime=datetime.strftime)
+        else:
+            return render_template("profile_redirect.html")
     else:
         return render_template("profile_redirect.html")
 
 
 @app.route('/leaderboards/<type>')
 @app.route('/leaderboards')
-def leaderboards_page(type='all'):
+def leaderboards_page(type='ALL'):
     pass
 
 

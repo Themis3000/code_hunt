@@ -67,3 +67,7 @@ def add_user():
 
 def set_username(username, id):
     user_data.update_one({"_id": id}, {"$set": {"username": username}})
+
+
+def get_top(type, amount):
+    user_data.find().sort({"visits_counts." + type + ".visits": -1}).limit(amount)
