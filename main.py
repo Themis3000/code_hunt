@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top
+from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -73,12 +74,17 @@ def profile_page(public_id=None):
 @app.route('/leaderboards/<type>')
 @app.route('/leaderboards')
 def leaderboards_page(type='ALL'):
-    pass
+    return render_template("leaderboards.html",
+                           tops=list(get_top(type, 15)),
+                           type=type)
 
 
 @app.route('/api/create', methods=['POST'])
-def create():
-    pass
+def create_code():
+    if request.headers.get('api_key') in os.environ['api_keys']:
+        return {"codes": create_codes(request.headers.get('type'), int(request.headers.get('amount')))}, 200
+    else:
+        return {"error": "Forbidden"}, 403
 
 
 if __name__ == '__main__':

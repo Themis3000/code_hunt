@@ -51,13 +51,13 @@ function changeUsername() {
 
 var params = getUrlVars();
 
-//clear params
-//var query = window.location.search.substring(1)
-//if(query.length) {
-//   if(window.history != undefined && window.history.pushState != undefined) {
-//        window.history.pushState({}, document.title, window.location.pathname);
-//   }
-//}
+clear params
+var query = window.location.search.substring(1)
+if(query.length) {
+   if(window.history != undefined && window.history.pushState != undefined) {
+        window.history.pushState({}, document.title, window.location.pathname);
+   }
+}
 
 if (typeof params["code"] !== 'undefined') {
     var user = getCookie("user_id");

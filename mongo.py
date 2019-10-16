@@ -70,4 +70,23 @@ def set_username(username, id):
 
 
 def get_top(type, amount):
-    user_data.find().sort({"visits_counts." + type + ".visits": -1}).limit(amount)
+    return user_data.find(projection={"public_id": True, "visits_counts." + type + ".visits": True, "username": True}).sort("visits_counts." + type + ".visits", pymongo.DESCENDING).limit(amount)
+
+
+def create_codes(type, amount):
+    codes_data = []
+    type_data = visits_count.find_one({"_id": type}, projection={"created_amount": True, "_id": False})
+    if type_data:
+        created_amount = type_data["created_amount"]
+    else:
+        visits_count.insert_one({"_id": type, "visits": 0, "unique_visits": 0, "created_amount": 0})
+        created_amount = 0
+    all_created_amount = visits_count.find_one({"_id": "ALL"}, projection={"created_amount": True, "_id": False})["created_amount"]
+    for i in range(amount):
+        created_amount += 1
+        all_created_amount += 1
+        codes_data.append({"_id": gen_code(), "public_id": gen_code(), "created_date": int(time.time()), "created_number": created_amount, "all_created_number": all_created_amount, "type": type, "include_in_count": True, "uses": 0, "uses_data": []})
+    visits_count.update_one({"_id": type}, {"$inc": {"created_amount": amount}})
+    visits_count.update_one({"_id": "ALL"}, {"$inc": {"created_amount": all_created_amount}})
+    referral_codes.insert_many(codes_data)
+    return codes_data

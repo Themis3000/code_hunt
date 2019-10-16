@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Leaderboards</title>
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
-<body>
-
+<body style="text-align:center;">
+    <h1>Top scan counts for {{ type }}</h1>
+    <div id="center_tables">
+        <table>
+            <thead><tr><th>User</th><th>Scans</th></tr></thead>
+            {% for i in tops %}
+                <tr>
+                    <td><a href="{{ url_for('profile_page', public_id=i['public_id']) }}">{{ i["username"] }}</a></td>
+                    <td>{{ i["visits_counts"][type]["visits"] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 </body>
 </html>
