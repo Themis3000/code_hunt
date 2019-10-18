@@ -51,7 +51,7 @@ function changeUsername() {
 
 var params = getUrlVars();
 
-clear params
+//clear params
 var query = window.location.search.substring(1)
 if(query.length) {
    if(window.history != undefined && window.history.pushState != undefined) {
