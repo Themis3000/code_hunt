@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
-from mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes
+from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes
 from datetime import datetime
 import os
+import json
 
 app = Flask(__name__)
 
@@ -81,7 +82,7 @@ def leaderboards_page(type='ALL'):
 
 @app.route('/api/create', methods=['POST'])
 def create_code():
-    if request.headers.get('api_key') in os.environ['api_keys']:
+    if request.headers.get('api_key') in json.loads(os.environ['api_keys']):
         return {"codes": create_codes(request.headers.get('type'), int(request.headers.get('amount')))}, 200
     else:
         return {"error": "Forbidden"}, 403

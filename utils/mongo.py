@@ -1,7 +1,7 @@
 import pymongo
 import os
 import time
-from codegen import gen_code
+from utils.codegen import gen_code
 
 client = pymongo.MongoClient(f"mongodb+srv://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}@{os.environ['MONGO_SERVER']}")
 
