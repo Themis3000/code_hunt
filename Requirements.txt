@@ -2,3 +2,5 @@ flask
 pymongo
 dnspython
 requests
+wheel
+gunicorn
