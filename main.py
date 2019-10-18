@@ -85,7 +85,3 @@ def create_code():
         return {"codes": create_codes(request.headers.get('type'), int(request.headers.get('amount')))}, 200
     else:
         return {"error": "Forbidden"}, 403
-
-
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8080)
