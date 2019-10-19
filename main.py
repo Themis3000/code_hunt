@@ -5,6 +5,7 @@ import os
 import json
 
 app = Flask(__name__)
+# todo:Themi Make all unix time stamp to date/time operations either occur in browser or read timezone of request to make times not munchos weirdos
 
 
 @app.route('/')
@@ -75,10 +76,15 @@ def profile_page(public_id=None):
 @app.route('/leaderboards/<type>')
 @app.route('/leaderboards')
 def leaderboards_page(type='ALL'):
-    return render_template("leaderboards.html",
-                           tops=list(get_top(type, 15)),
-                           type=type,
-                           enumerate=enumerate)
+    tops = list(get_top(type, 15))
+    if type in tops[0]["visits_counts"]:
+        return render_template("leaderboards.html",
+                               tops=tops,
+                               type=type,
+                               enumerate=enumerate)
+    else:
+        #error page here
+        return "you a hecker dummy face", 404
 
 
 @app.route('/api/create', methods=['POST'])

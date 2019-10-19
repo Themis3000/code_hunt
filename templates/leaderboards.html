@@ -11,11 +11,13 @@
         <table>
             <thead><tr><th>place</th><th>User</th><th>Scans</th></tr></thead>
             {% for i, userdata in enumerate(tops) %}
-                <tr>
-                    <td>{{ i+1 }}</td>
-                    <td><a href="{{ url_for('profile_page', public_id=userdata['public_id']) }}">{{ userdata["username"] }}</a></td>
-                    <td>{{ userdata["visits_counts"][type]["visits"] }}</td>
-                </tr>
+                {% if userdata["visits_counts"][type] %}
+                    <tr>
+                        <td>{{ i+1 }}</td>
+                        <td><a href="{{ url_for('profile_page', public_id=userdata['public_id']) }}">{{ userdata["username"] }}</a></td>
+                        <td>{{ userdata["visits_counts"][type]["visits"] }}</td>
+                    </tr>
+                {% endif %}
             {% endfor %}
         </table>
     </div>
