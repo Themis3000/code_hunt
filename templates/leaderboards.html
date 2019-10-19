@@ -9,11 +9,12 @@
     <h1>Top scan counts for {{ type }}</h1>
     <div id="center_tables">
         <table>
-            <thead><tr><th>User</th><th>Scans</th></tr></thead>
-            {% for i in tops %}
+            <thead><tr><th>place</th><th>User</th><th>Scans</th></tr></thead>
+            {% for i, userdata in enumerate(tops) %}
                 <tr>
-                    <td><a href="{{ url_for('profile_page', public_id=i['public_id']) }}">{{ i["username"] }}</a></td>
-                    <td>{{ i["visits_counts"][type]["visits"] }}</td>
+                    <td>{{ i+1 }}</td>
+                    <td><a href="{{ url_for('profile_page', public_id=userdata['public_id']) }}">{{ userdata["username"] }}</a></td>
+                    <td>{{ userdata["visits_counts"][type]["visits"] }}</td>
                 </tr>
             {% endfor %}
         </table>

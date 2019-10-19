@@ -20,7 +20,7 @@ def scan_page(style='default'):
         if code:
             return render_template("/scan/" + style + ".html")
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('profile_page'))
     elif request.method == 'POST':
         new_username = request.headers.get('new_username')
         if new_username:
@@ -77,7 +77,8 @@ def profile_page(public_id=None):
 def leaderboards_page(type='ALL'):
     return render_template("leaderboards.html",
                            tops=list(get_top(type, 15)),
-                           type=type)
+                           type=type,
+                           enumerate=enumerate)
 
 
 @app.route('/api/create', methods=['POST'])
