@@ -6,6 +6,7 @@ import json
 
 app = Flask(__name__)
 # todo:Themi Make all unix time stamp to date/time operations either occur in browser or read timezone of request to make times not munchos weirdos
+# todo:Themi Populate index.html with actual content
 
 
 @app.route('/')
