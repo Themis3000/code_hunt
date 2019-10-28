@@ -49,9 +49,8 @@ def code_page(code):
                            code_scans=code_data["uses"],
                            created_date=datetime.fromtimestamp(code_data["created_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
                            history=code_data["uses_data"],
-                           length=len(code_data["uses_data"]),
-                           timestamp=datetime.fromtimestamp,
-                           strftime=datetime.strftime)
+                           length=len(code_data["uses_data"])
+                           )
 
 
 @app.route('/profile/<public_id>', methods=['GET'])
@@ -65,9 +64,8 @@ def profile_page(public_id=None):
                                    visits=user_data["visits_counts"]["ALL"]["visits"],
                                    join_date=datetime.fromtimestamp(user_data["join_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
                                    code_data=user_data["codes"],
-                                   visits_data=user_data["visits_counts"],
-                                   timestamp=datetime.fromtimestamp,
-                                   strftime=datetime.strftime)
+                                   visits_data=user_data["visits_counts"]
+                                   )
         else:
             return render_template("profile_redirect.html")
     else:
