@@ -47,7 +47,7 @@ def code_page(code):
                            code_num=code_data["created_number"],
                            type_num=type_data["created_amount"],
                            code_scans=code_data["uses"],
-                           created_date=datetime.fromtimestamp(code_data["created_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
+                           created_date=code_data["created_date"],
                            history=code_data["uses_data"],
                            length=len(code_data["uses_data"])
                            )
@@ -62,7 +62,7 @@ def profile_page(public_id=None):
             return render_template("profile.html",
                                    username=user_data["username"],
                                    visits=user_data["visits_counts"]["ALL"]["visits"],
-                                   join_date=datetime.fromtimestamp(user_data["join_date"]).strftime('%Y/%m/%d %I:%M:%S %p'),
+                                   join_date=user_data["join_date"],
                                    code_data=user_data["codes"],
                                    visits_data=user_data["visits_counts"]
                                    )

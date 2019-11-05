@@ -8,7 +8,7 @@
 <body style="text-align:center;">
     <h1>{{ username }}</h1>
     <h2>{{ visits }} code finds</h2>
-    <h3>Joined on {{ join_date }}</h3>
+    <h3 id="join_date">{{ join_date }}</h3>
     <div id="center_tables">
         <div>
             <h4>Scan counts by type:</h4>
@@ -73,6 +73,8 @@
         for (var i = 1, row; row = table.rows[i]; i++) {
             table.rows[i].cells[1].innerHTML = convertTimestamp(table.rows[i].cells[1].innerHTML);
         }
+        var join_date = document.getElementById("join_date");
+        join_date.innerHTML = "Joined on " + convertTimestamp(parseInt(join_date.innerHTML));
     </script>
 </body>
 </html>

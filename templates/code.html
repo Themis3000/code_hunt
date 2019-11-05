@@ -8,7 +8,7 @@
 <body style="text-align:center;">
     <h1>{{ type }} #{{ code_num }}/{{ type_num }}</h1>
     <h3>This code has been scanned {{ code_scans }} times</h3>
-    <h3>Created at {{ created_date }}</h3>
+    <h3 id="create_date">{{ created_date }}</h3>
     <h3>Scan history:</h3>
     <table class="center" id="scan_data">
         <thead><tr><th>Time</th><th>User</th></tr></thead>
@@ -52,6 +52,8 @@
         for (var i = 1, row; row = table.rows[i]; i++) {
             table.rows[i].cells[0].innerHTML = convertTimestamp(table.rows[i].cells[0].innerHTML);
         }
+        var create_date = document.getElementById("create_date");
+        create_date.innerHTML = "Created at " + convertTimestamp(parseInt(create_date.innerHTML));
     </script>
 </body>
 </html>
