@@ -94,7 +94,11 @@ if (typeof params["code"] !== 'undefined') {
                 replace_var("code_scans", "code_uses", response["code_data"]["uses"]);
                 replace_var("new_code_scans", "new_code_uses", getNumberWithSuffix(response["code_data"]["uses"] + 1));
                 if ("visits_counts" in response["user_data"]) {
-                    replace_var("user_stats", "total_scans", response["user_data"]["visits_counts"]["ALL"]["visits"] + 1);
+                    if ("ALL" in response["user_data"]["visits_counts"]) {
+                        replace_var("user_stats", "total_scans", response["user_data"]["visits_counts"]["ALL"]["visits"] + 1);
+                    } else {
+                        replace_var("user_stats", "total_scans", 1);
+                    }
                 } else {
                     replace_var("user_stats", "total_scans", 1);
                 }
