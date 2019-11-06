@@ -59,6 +59,7 @@ if(query.length) {
    }
 }
 
+
 if (typeof params["code"] !== 'undefined') {
     var user = getCookie("user_id");
     const Http = new XMLHttpRequest();
@@ -69,13 +70,12 @@ if (typeof params["code"] !== 'undefined') {
     Http.onloadend = (e) => {
         if (Http.status == 200){
             var response = JSON.parse(Http.responseText);
-            console.log(response);
             if (response["new_user"] == true) {
                 setCookie("user_id", response["user_data"]["_id"], 1825);
                 setCookie("user_id_public", response["user_data"]["public_id"], 1825);
                 replace_var("user_stats", "total_scans", 1);
             }
-            replace_var("sign_in_confirmation", "username", response["user_data"]["username"]);
+            replace_var("sign_in_link", "username", response["user_data"]["username"]);
             document.getElementById("sign_in_confirmation").style.display = "block";
             if (response["user_data"]["username"] == "guest") {
                 document.getElementById("username_change").style.display = "block";
