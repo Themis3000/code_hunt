@@ -75,11 +75,15 @@ def profile_page(public_id=None):
 @app.route('/leaderboards')
 def leaderboards_page(type='ALL'):
     tops = list(get_top(type, 15))
+    type_data = get_type_data(type)
     if type in tops[0]["visits_counts"]:
         return render_template("leaderboards.html",
                                tops=tops,
                                type=type,
-                               enumerate=enumerate)
+                               enumerate=enumerate,
+                               amount_found=type_data["unique_visits"],
+                               amount_created=type_data["created_amount"],
+                               total_scan_amount=type_data["visits"])
     else:
         #error page here
         return "you a hecker dummy face", 404
