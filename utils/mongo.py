@@ -87,6 +87,6 @@ def create_codes(type, amount):
         all_created_amount += 1
         codes_data.append({"_id": gen_code(), "public_id": gen_code(), "created_date": int(time.time()), "created_number": created_amount, "all_created_number": all_created_amount, "type": type, "include_in_count": True, "uses": 0, "uses_data": []})
     visits_count.update_one({"_id": type}, {"$inc": {"created_amount": amount}})
-    visits_count.update_one({"_id": "ALL"}, {"$inc": {"created_amount": all_created_amount}})
+    visits_count.update_one({"_id": "ALL"}, {"$inc": {"created_amount": amount}})
     referral_codes.insert_many(codes_data)
     return codes_data
