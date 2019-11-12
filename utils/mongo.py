@@ -3,7 +3,7 @@ import os
 import time
 from utils.codegen import gen_code
 
-client = pymongo.MongoClient(f"mongodb+srv://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}@{os.environ['MONGO_SERVER']}")
+client = pymongo.MongoClient(os.environ['mongo_connection_string'])
 
 visits = client["visits"]
 referral_codes = visits["referral_codes"]
