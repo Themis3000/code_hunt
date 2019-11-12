@@ -16,7 +16,7 @@
             {% for i in range(0, length) %}
                 <tr>
                     <td>{{ history[i]['time'] }}</td>
-                    <td><a href="{{ url_for('profile_page', public_id=history[i]['public_id']) }}">{{ history[i]['user'] }}</a></td>
+                    <td><a href="{{ url_for('profile_page', public_id=history[i]['public_id']) }}">{{ updated_users[i]['username'] }}</a></td>
                 </tr>
             {% endfor %}
         </tbody>

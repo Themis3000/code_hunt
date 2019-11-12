@@ -15,8 +15,8 @@ def get_type_data(type):
     return visits_count.find_one({"_id": type})
 
 
-def get_users(user_find_by_data_array, projection):
-    return user_data.find(user_find_by_data_array, projection=projection)
+def get_users(public_ids, projection):
+    return user_data.find({"public_id": {"$in": public_ids}}, projection=projection)
 
 
 def add_visit(code, user_id):

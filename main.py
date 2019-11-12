@@ -43,8 +43,11 @@ def code_page(code):
     code_data = get_code_data_by_public_id(code)
     user_public_ids = []
     for code in code_data["uses_data"]:
-        user_public_ids.append({"public_id": code["public_id"]})
-    get_users(user_public_ids, {"username": True})
+        user_public_ids.append(code["public_id"])
+    updated_users = get_users(user_public_ids, {"username": True, "public_id": True})
+    updated_code_data = []
+    for code in code_data["uses_data"]:
+        updated_code_data.append()
     type_data = get_type_data(code_data["type"])
     return render_template("code.html",
                            type=code_data["type"],
@@ -53,6 +56,7 @@ def code_page(code):
                            code_scans=code_data["uses"],
                            created_date=code_data["created_date"],
                            history=code_data["uses_data"],
+                           updated_users=updated_users,
                            length=len(code_data["uses_data"])
                            )
 
