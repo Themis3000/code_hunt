@@ -96,3 +96,8 @@ def create_code():
         return {"codes": create_codes(request.headers.get('type'), int(request.headers.get('amount')))}, 200
     else:
         return {"error": "Forbidden"}, 403
+
+
+@app.route('/changeid', methods=['GET'])
+def change_id_page():
+    return render_template("changeid.html")
