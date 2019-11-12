@@ -38,6 +38,6 @@ Requirements for api access:
 1. You must have a public space that it would be ok and not completely wasteful to hang up a bunch of qr codes
 2. The people at said public place must be immature enough to want to compete
 3. You must have your own strange thing/meme that isn't gnomes that you print out along with the qr code
-4. You must have a method of mass producing prints in a not completely wasteful way (for example, a receipt printer)
+4. You must have a method of mass producing prints
 
 Contact me at tcm4760@gmail.com or at 612-702-6280 if you are interested
