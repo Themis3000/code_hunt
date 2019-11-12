@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes
+from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes, get_users
 from datetime import datetime
 import os
 import json
@@ -41,6 +41,10 @@ def scan_page(style='default'):
 @app.route('/code/<code>', methods=['GET'])
 def code_page(code):
     code_data = get_code_data_by_public_id(code)
+    user_public_ids = []
+    for code in code_data["uses_data"]:
+        user_public_ids.append({"public_id": code["public_id"]})
+    get_users(user_public_ids, {"username": True})
     type_data = get_type_data(code_data["type"])
     return render_template("code.html",
                            type=code_data["type"],

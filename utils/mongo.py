@@ -15,6 +15,10 @@ def get_type_data(type):
     return visits_count.find_one({"_id": type})
 
 
+def get_users(user_find_by_data_array, projection):
+    return user_data.find(user_find_by_data_array, projection=projection)
+
+
 def add_visit(code, user_id):
     if user_id == "undefined":
         old_user_data = add_user()
