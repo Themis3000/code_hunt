@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes
+from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes, get_users
 from datetime import datetime
 import os
 import json
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def index_page():
     return render_template("index.html")
 
 
@@ -41,6 +41,13 @@ def scan_page(style='default'):
 @app.route('/code/<code>', methods=['GET'])
 def code_page(code):
     code_data = get_code_data_by_public_id(code)
+    user_public_ids = []
+    for code in code_data["uses_data"]:
+        user_public_ids.append(code["public_id"])
+    updated_users = get_users(user_public_ids, {"username": True, "public_id": True})
+    updated_users_formatted = {}
+    for user in updated_users:
+        updated_users_formatted[user["public_id"]] = user["username"]
     type_data = get_type_data(code_data["type"])
     return render_template("code.html",
                            type=code_data["type"],
@@ -49,6 +56,7 @@ def code_page(code):
                            code_scans=code_data["uses"],
                            created_date=code_data["created_date"],
                            history=code_data["uses_data"],
+                           updated_users_formatted=updated_users_formatted,
                            length=len(code_data["uses_data"])
                            )
 
