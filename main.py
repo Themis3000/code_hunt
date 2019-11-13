@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes, get_users
+from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes, get_users, get_user_by_id
 from datetime import datetime
 import os
 import json
@@ -106,6 +106,13 @@ def create_code():
         return {"error": "Forbidden"}, 403
 
 
-@app.route('/changeid', methods=['GET'])
+@app.route('/changeid', methods=['GET', 'POST'])
 def change_id_page():
-    return render_template("changeid.html")
+    if request.method == "GET":
+        return render_template("changeid.html")
+    elif request.method == 'POST':
+        user_data = get_user_by_id(request.headers.get('id'), {"_id": True, "public_id": True})
+        if user_data:
+            return {"id": user_data["_id"], "public_id": user_data["public_id"]}, 200
+        else:
+            return {"error": 403}, 403
