@@ -16,7 +16,7 @@ def get_type_data(type):
 
 
 def get_users(public_ids, projection):
-    return user_data.find({"public_id": {"$in": public_ids}}, projection=projection)
+    return user_data.find({"public_id": {"$in": public_ids}}, projection=projection).limit(len(public_ids))
 
 
 def add_visit(code, user_id):

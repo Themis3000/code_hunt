@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def index():
+def index_page():
     return render_template("index.html")
 
 
@@ -45,9 +45,9 @@ def code_page(code):
     for code in code_data["uses_data"]:
         user_public_ids.append(code["public_id"])
     updated_users = get_users(user_public_ids, {"username": True, "public_id": True})
-    updated_code_data = []
-    for code in code_data["uses_data"]:
-        updated_code_data.append()
+    updated_users_formatted = {}
+    for user in updated_users:
+        updated_users_formatted[user["public_id"]] = user["username"]
     type_data = get_type_data(code_data["type"])
     return render_template("code.html",
                            type=code_data["type"],
@@ -56,7 +56,7 @@ def code_page(code):
                            code_scans=code_data["uses"],
                            created_date=code_data["created_date"],
                            history=code_data["uses_data"],
-                           updated_users=updated_users,
+                           updated_users_formatted=updated_users_formatted,
                            length=len(code_data["uses_data"])
                            )
 
