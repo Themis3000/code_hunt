@@ -19,6 +19,10 @@ def get_users(public_ids, projection):
     return user_data.find({"public_id": {"$in": public_ids}}, projection=projection).limit(len(public_ids))
 
 
+def get_user_by_id(id, projection):
+    return user_data.find_one({"_id": id}, projection=projection)
+
+
 def add_visit(code, user_id):
     if user_id == "undefined":
         old_user_data = add_user()
