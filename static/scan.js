@@ -63,8 +63,9 @@ if(query.length) {
 if (typeof params["code"] !== 'undefined') {
     var user = getCookie("user_id");
     const Http = new XMLHttpRequest();
-    Http.open("POST", "/changeid");
+    Http.open("POST", "/scan");
     Http.setRequestHeader("user_id", user);
+    Http.setRequestHeader("code", params["code"]);
     Http.send();
     Http.onloadend = (e) => {
         if (Http.status == 200){

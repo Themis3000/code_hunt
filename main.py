@@ -31,6 +31,8 @@ def scan_page(style='default'):
         else:
             code = request.headers.get('code')
             user_id = request.headers.get('user_id')
+            print(code)
+            print(user_id)
             code_data, user_data, type_data, new_user = add_visit(code, user_id)
             if code_data is None:
                 return {"error": 400}, 400
