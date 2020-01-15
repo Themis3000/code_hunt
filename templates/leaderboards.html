@@ -11,7 +11,7 @@
     <h2>in total, {{ total_scan_amount }} have been scanned</h2>
     <div id="center_tables">
         <table>
-            <thead><tr><th>place</th><th>User</th><th>Scans</th></tr></thead>
+            <thead><tr><th>place</th><th>User</th><th></th></tr></thead>
             {% for i, userdata in enumerate(tops) %}
                 {% if userdata["visits_counts"][type] %}
                     <tr>

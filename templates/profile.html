@@ -13,7 +13,7 @@
         <div>
             <h4>Scan counts by type:</h4>
             <table>
-                <thead><tr><th>Type</th><th>Scans</th><th>First scans</th></tr></thead>
+                <thead><tr><th class="text">Type</th><th class = "text">Scans</th><th class = "text">First scans</th></tr></thead>
                 {% for i in visits_data %}
                     <tr>
                         <td><a href="{{ url_for('leaderboards_page', type=i) }}">{{ i }}</a></td>
@@ -30,12 +30,12 @@
         <div>
             <h4>Code scan history:</h4>
             <table id="scan_history">
-                <thead><tr><th>Id</th><th>Time</th><th>Visit number</th><th>type</th></tr></thead>
+                <thead><tr><th class = "text">Id</th><th class = "text">Time</th><th class = "text">Visit number</th><th class = "text">type</th></tr></thead>
                 {% for i in code_data %}
                     <tr>
                         <td><a href="{{ url_for('code_page', code=code_data[i]['public_id']) }}">{{ code_data[i]["public_id"] }}</a></td>
-                        <td>{{ code_data[i]["time"] }}</td>
-                        <td>{{ code_data[i]["visit_num"] }}</td>
+                        <td class = "text">{{ code_data[i]["time"] }}</td>
+                        <td class = "text">{{ code_data[i]["visit_num"] }}</td>
                         <td><a href="{{ url_for('leaderboards_page', type=code_data[i]['type']) }}">{{ code_data[i]["type"] }}</a></td>
                     </tr>
                 {% endfor %}

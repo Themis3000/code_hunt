@@ -2,7 +2,7 @@
     width: 90%;
     height: 90%;
     position: fixed;
-    background-color: #ffffff;
+    background-color: #33312E;
     top: 5%;
     left: 5%;
     border-radius: 15px 15px 15px 15px;
@@ -36,38 +36,38 @@
 }
 
 a:link {
-    color: blue;
+    color: #cc0300;
     background-color: transparent;
     text-decoration: underline;
 }
 
 a:hover {
-    color: red;
+    color: #e0e0e2;
     background-color: transparent;
     text-decoration: underline;
 }
 
 a:active {
-    color: yellow;
-    background-color: transparent;
+    color: #f42a27;
+    background-color: black;
     text-decoration: underline;
 }
 
 table, th, td {
-    border: 1px solid black;
+    border: 3px solid #cc0300;
     border-collapse: collapse;
 }
 
 table tr:nth-child(even) {
-  background-color: #eee;
+  background-color: #e0e0e2;
 }
 
 table tr:nth-child(odd) {
- background-color: #fff;
+ background-color: #f98918;
 }
 
 table th {
-  background-color: #eee;
+  background-color: #e0e0e2;
 }
 
 th, td {
@@ -90,8 +90,13 @@ table.center {
 #center_tables {
     display: flex;
     justify-content: center;
+
 }
 
-#center_tables.div {
+#center_tables.td {
+    color: white;
+}
 
+#text {
+    color:#d31410;
 }
