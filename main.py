@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from utils.mongo import add_visit, set_username, get_type_data, get_code_data_by_public_id, get_user_by_public_id, get_top, create_codes, get_users, get_user_by_id
-from datetime import datetime
 import os
 import json
+from google.oauth2 import id_token
+from google.auth.transport import requests
 
 app = Flask(__name__)
-# todo:Themi Populate index.html with actual content
-# todo:Themi Make username on past code historys update after changing username
 
 
 @app.route('/')
@@ -116,3 +115,21 @@ def change_id_page():
             return {"id": user_data["_id"], "public_id": user_data["public_id"]}, 200
         else:
             return {"error": 403}, 403
+
+
+@app.route('/backup', methods=['GET'])
+def backup_page():
+    return render_template('backup.html')
+
+
+@app.route('/gtokensignin', methods=['POST'])
+def gtokensignin():
+    token = request.headers.get('idtoken')
+    try:
+        idinfo = id_token.verify_oauth2_token(token, requests.Request(), '614231557062-6hp004odltg45p9v52qtm7kb63s1umtm.apps.googleusercontent.com')
+        if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+            raise ValueError('Wrong issuer.')
+        userid = idinfo['sub']
+    except ValueError:
+        print("invalid token")
+    return "ok", 200

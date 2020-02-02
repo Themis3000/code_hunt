@@ -4,3 +4,4 @@ dnspython
 requests
 wheel
 gunicorn
+google-api-python-client
