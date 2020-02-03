@@ -40,4 +40,4 @@ Requirements for api access:
 3. You must have your own strange thing/meme that isn't gnomes that you print out along with the qr code
 4. You must have a method of mass producing prints
 
-Contact me at tcm4760@gmail.com or at 612-702-6280 if you are interested
+Contact me at tcm4760@gmail.com if you are interested
