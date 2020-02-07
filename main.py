@@ -130,6 +130,8 @@ def gtokensignin():
         if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
             raise ValueError('Wrong issuer.')
         userid = idinfo['sub']
+        print(userid)
+        print(idinfo)
     except ValueError:
         print("invalid token")
     return "ok", 200
