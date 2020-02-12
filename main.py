@@ -131,7 +131,6 @@ def gtokensignin():
             raise ValueError('Wrong issuer.')
         userid = idinfo['sub']
         print(userid)
-        print(idinfo)
     except ValueError:
         print("invalid token")
     return "ok", 200
