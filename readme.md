@@ -1,3 +1,5 @@
+This is the rewrite branch aimed to overall improve the inner workings of the project
+
 # Oh yeah, gnome time
 ### 1. print gnome
 ![gnome jam](https://imgur.com/a2BIAfQ.jpeg)
