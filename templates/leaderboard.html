@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <title>Leaderboards</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body style="text-align:center;">
-    <h1>Top scan counts for {{ type }}</h1>
+    <h1>Top scan counts for {{ code_type }}</h1>
     <h2>{{ amount_found }}/{{ amount_created }} have been found</h2>
     <h2>in total, {{ total_scan_amount }} have been scanned</h2>
-    <div>
-        <table class="table table-striped table-dark">
+    <div class="centerContent">
+        <table class="table table-hover">
             <thead><tr><th>Place</th><th>User</th><th>Score</th></tr></thead>
             {% for i, userdata in enumerate(tops) %}
                 {% if userdata["visits_counts"][code_type] %}
