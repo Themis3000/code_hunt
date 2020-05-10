@@ -1,4 +1,39 @@
 div.centerContent {
     width: 50%;
     margin: auto;
+    text-align: center;
+}
+
+.container {
+    border: 1px solid #e2e2e2;
+    border-radius: 2px;
+    margin: 1em;
+    max-width: 270px;
+}
+ul {
+    margin: 10px 0;
+}
+li {
+    border-right: 1px solid #e7e7e7;
+    display: table-cell;
+    font-size: 24px;
+    max-width: 33%;
+    padding: 6px 0 12px 0%;
+    text-align: center;
+    width: 500px
+}
+.stat {
+    //background: lightblue;
+    display: inline-block;
+    text-align: left;
+}
+.last {
+    border:none;
+}
+.label {
+    color: #999;
+    display: block;
+    margin: 5px 0 0 0;
+    font-size: 9px;
+    text-transform: uppercase;
 }

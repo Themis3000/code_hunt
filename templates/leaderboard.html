@@ -6,10 +6,30 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/static/style.css">
 </head>
-<body style="text-align:center;">
-    <h1>Top scan counts for {{ code_type }}</h1>
-    <h2>{{ amount_found }}/{{ amount_created }} have been found</h2>
-    <h2>in total, {{ total_scan_amount }} have been scanned</h2>
+<body>
+    <div class="container" style="margin:auto;">
+        <h5 style="text-align:center;">stats for {{ code_type }}:</h5>
+        <ul class="stats">
+            <li>
+                <div class="stat">
+                    {{ amount_found }}/{{ amount_created }}
+                    <span class="label">Found</span>
+                </div>
+            </li>
+            <li>
+                <div class="stat">
+                    {{ total_scan_amount }}
+                    <span class="label">scanned</span>
+                </div>
+            </li>
+            <li class="last">
+                <div class="stat">
+                    {{ users_on_board }}
+                    <span class="label">users on leaderboard</span>
+                </div>
+            </li>
+        </ul>
+    </div>
     <div class="centerContent">
         <table class="table table-hover">
             <thead><tr><th>Place</th><th>User</th><th>Score</th></tr></thead>
