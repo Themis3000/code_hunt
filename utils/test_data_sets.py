@@ -15,3 +15,14 @@ tops_data = [
     {'username': 'temi13', 'visits_counts': {'gnome': {'visits': 1}, 'ALL': {'visits': 1}}},
     {'username': 'temi14', 'visits_counts': {'gnome': {'visits': 1}, 'ALL': {'visits': 1}}},
 ]
+
+code_data = {
+    "make": 56,
+    "creation_time": 1590172731,
+    "scans_data": [
+        {"user": "temi1", "time": 1590259137},
+        {"user": "temi2", "time": 1590259267},
+        {"user": "temi3", "time": 1590259274},
+        {"user": "temi4", "time": 1590259282}
+    ]
+}

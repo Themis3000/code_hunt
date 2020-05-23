@@ -14,7 +14,7 @@ def index_page():
 @app.route('/favicon.ico')
 def favicon():
     return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'noggin.ico', mimetype='image/vnd.microsoft.icon')
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
 @app.route('/leaderboard/<code_type>')
@@ -30,3 +30,10 @@ def leaderboard_page(code_type: str = 'ALL'):
                            users_on_board=len(utils.test_data_sets.tops_data),
                            ordinal=utils.num_utils.ordinal,
                            user_placement=7)
+
+
+@app.route('/code/<code_id>')
+def code_page(code_id: str):
+    return render_template("code.html",
+                           code_data=utils.test_data_sets.code_data,
+                           amount_created=106)
