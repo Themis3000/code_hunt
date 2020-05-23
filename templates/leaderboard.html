@@ -22,6 +22,14 @@
                     <span class="label">scanned</span>
                 </div>
             </li>
+            {% if user_placement %}
+                <li class="stat">
+                    <div class="stat">
+                        {{ ordinal(user_placement) }}
+                        <span class="label">Your placement</span>
+                    </div>
+                </li>
+            {% endif %}
             <li class="last">
                 <div class="stat">
                     {{ users_on_board }}
@@ -35,7 +43,11 @@
             <thead><tr><th>Place</th><th>User</th><th>Score</th></tr></thead>
             {% for i, userdata in enumerate(tops) %}
                 {% if userdata["visits_counts"][code_type] %}
-                    <tr>
+                    {% if i+1 == user_placement %}
+                        <tr class="table-primary">
+                    {% else %}
+                        <tr>
+                    {% endif %}
                         <td>{{ i+1 }}</td>
                         <td><a href="/">{{ userdata["username"] }}</a></td>
                         <td>{{ userdata["visits_counts"][code_type]["visits"] }}</td>
