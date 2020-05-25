@@ -17,12 +17,10 @@ def favicon():
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 
-@app.route('/leaderboard/<code_type>')
 @app.route('/leaderboard')
-def leaderboard_page(code_type: str = 'ALL'):
+def leaderboard_page():
     return render_template("leaderboard.html",
                            tops=utils.test_data_sets.tops_data,
-                           code_type=code_type,
                            enumerate=enumerate,
                            amount_found=5,
                            amount_created=10,
@@ -36,4 +34,6 @@ def leaderboard_page(code_type: str = 'ALL'):
 def code_page(code_id: str):
     return render_template("code.html",
                            code_data=utils.test_data_sets.code_data,
-                           amount_created=106)
+                           amount_created=106,
+                           accessing_username="temi3",
+                           enumerate=enumerate)

@@ -8,6 +8,22 @@
     <title>Code stats</title>
 </head>
 <body>
-
+    <h2 style="text-align: center;">Gnome {{ code_data["make"] }}/{{ amount_created }}</h2>
+    <div class="centerContent">
+        <table class="table table-hover">
+            <thead><tr><th>Scan #</th><th>User</th><th>Time</th></tr></thead>
+            {% for i, scan in enumerate(code_data["scans_data"]) %}
+                {% if scan["user"] == accessing_username %}
+                    <tr class="table-primary">
+                {% else %}
+                    <tr>
+                {% endif %}
+                <td>{{ i+1 }}</td>
+                <td>{{ scan["user"] }}</td>
+                <td class="con_time">{{ scan["time"] }}</td>
+            {% endfor %}
+        </table>
+    </div>
+    <script src="/static/code.js"></script>
 </body>
 </html>
