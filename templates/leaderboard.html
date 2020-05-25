@@ -31,7 +31,7 @@
             {% endif %}
             <li class="last">
                 <div class="stat">
-                    {{ users_on_board }}
+                    {{ len(tops) }}
                     <span class="label">users on leaderboard</span>
                 </div>
             </li>
@@ -41,7 +41,7 @@
         <table class="table table-hover">
             <thead><tr><th>Place</th><th>User</th><th>Score</th></tr></thead>
             {% for i, userdata in enumerate(tops) %}
-                {% if userdata["visits_counts"][code_type] %}
+                {% if userdata["visits_count"] %}
                     {% if i+1 == user_placement %}
                         <tr class="table-primary">
                     {% else %}
@@ -49,7 +49,7 @@
                     {% endif %}
                         <td>{{ i+1 }}</td>
                         <td><a href="/">{{ userdata["username"] }}</a></td>
-                        <td>{{ userdata["visits_counts"][code_type]["visits"] }}</td>
+                        <td>{{ userdata["visits_count"] }}</td>
                     </tr>
                 {% endif %}
             {% endfor %}

@@ -22,10 +22,10 @@ def leaderboard_page():
     return render_template("leaderboard.html",
                            tops=utils.test_data_sets.tops_data,
                            enumerate=enumerate,
+                           len=len,
                            amount_found=5,
                            amount_created=10,
                            total_scan_amount=7,
-                           users_on_board=len(utils.test_data_sets.tops_data),
                            ordinal=utils.num_utils.ordinal,
                            user_placement=7)
 
