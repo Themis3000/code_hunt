@@ -1,3 +1,5 @@
+Rewrite currently being done on branch "rewrite"
+
 # Oh yeah, gnome time
 ### 1. print gnome
 ![gnome jam](https://imgur.com/a2BIAfQ.jpeg)
