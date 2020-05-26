@@ -6,3 +6,4 @@ wheel
 gunicorn
 google-api-python-client
 shortuuid
+Flask-Limiter
