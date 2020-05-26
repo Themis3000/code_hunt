@@ -36,4 +36,7 @@ def code_page(code_id: str):
                            code_data=utils.test_data_sets.code_data,
                            amount_created=106,
                            accessing_username="temi3",
-                           enumerate=enumerate)
+                           enumerate=enumerate,
+                           len=len,
+                           list=list,
+                           reversed=reversed)
