@@ -7,3 +7,4 @@ gunicorn
 google-api-python-client
 shortuuid
 Flask-Limiter
+flask-classful
