@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Too many requests made</title>
+</head>
+<body>
+    <h1>Whoa there buddy, give my underpowered free teir servers a break</h1>
+    {# The nasty if statements are for adding a s at the end of the if the number value is a a multiple #}
+    <p>You've made way too many requests in a short span of time, we're allocating you a whole {{ error.limit.limit.amount }}
+    request{% if not error.limit.limit.amount == 1 %}s{% endif %} per
+    {{ error.limit.limit.multiples }} {{ error.limit.limit.granularity[1] }}{% if not error.limit.limit.multiples == 1 %}s{% endif %}
+    and you've just gone and blown right through it.</p>
+</body>
+</html>

@@ -27,7 +27,7 @@ def favicon():
 
 
 @app.route('/leaderboard')
-@limiter.limit("10/minute")
+@limiter.limit("2/5second")
 def leaderboard_page():
     return render_template("leaderboard.html",
                            tops=utils.test_data_sets.tops_data,
@@ -51,3 +51,9 @@ def code_page(code_id: str):
                            len=len,
                            list=list,
                            reversed=reversed)
+
+
+@app.errorhandler(429)
+def ratelimit_handler(e):
+    return render_template("error_templates/249.html",
+                           error=e)
