@@ -54,27 +54,29 @@
                 {% endif %}
             {% endfor %}
         </table>
-        <nav aria-label="...">
-            <ul class="pagination">
-                {# disables previous page button if on first page #}
-                <li class="page-item {% if page == 1 %}disabled{% endif %}">
-                    <a class="page-link" href="?page={{page-1}}" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
-                {% for i in display_page_range %}
-                    {% if i == page %}
-                        <li class="page-item active" aria-current="page">
-                            <a class="page-link">{{i}}<span class="sr-only">(current)</span></a>
-                        </li>
-                    {% else %}
-                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {# disables next page button if on last page #}
-                <li class="page-item {% if page == pages %}disabled{% endif %}">
-                    <a class="page-link" href="?page={{page+1}}">Next</a>
-                </li>
-            </ul>
-        </nav>
+        {% if len(display_page_range) > 1 %}
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {# disables previous page button if on first page #}
+                    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="?page={{page-1}}" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+                    {% for i in display_page_range %}
+                        {% if i == page %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link">{{i}}<span class="sr-only">(current)</span></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {# disables next page button if on last page #}
+                    <li class="page-item {% if page == pages %}disabled{% endif %}">
+                        <a class="page-link" href="?page={{page+1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        {% endif %}
     </div>
 </body>
 </html>
