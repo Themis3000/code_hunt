@@ -4,7 +4,7 @@ from flask import Flask, render_template
 
 def init_views(app: Flask):
     for view in get_views():
-        view.register(app)
+        view.register(app, trailing_slash=False)
     configure_errors(app)
 
 
