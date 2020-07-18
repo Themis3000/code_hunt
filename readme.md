@@ -33,3 +33,5 @@ Rewrite currently being done on branch "rewrite"
 - When visiting /scan for the first time a user id is stored as a cookie in the browser
 - Mongodb is used to store code data, user data, and type data
 - Qr codes are generated with an api call at /api/create
+
+![Tracking image](https://imgtraker.herokuapp.com/img/PTntEBeV.jpeg)
