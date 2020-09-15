@@ -13,21 +13,12 @@ Rewrite currently being done on branch "rewrite"
 ![gnome chaos](https://imgur.com/5tMsuau.jpeg)
 # Functionality
 ### scan landing page
-- see print number of gnome
-- see how many others have scanned that code
-- says what scan number you where
-- links to other pages such as more detailed code data, leaderboards, and your profile
-- set your account username  
 ![scan landing page](https://imgur.com/KnAimfV.jpeg)
 ### Leaderboard
-- see top 15 scanners and links to their profiles  
 ![leaderboard](https://imgur.com/Mf9LWQd.jpeg)
 ### More detailed code data
-- See the usernames and time people in the past have scanned that gnome  
 ![code data](https://imgur.com/Mb3mxIg.jpeg)
 ### user profiles
-- See a users scan history
-- See the date the user joined  
 ![profile page](https://imgur.com/IWdquMB.jpeg)
 # Behind the scenes
 - When visiting /scan for the first time a user id is stored as a cookie in the browser
